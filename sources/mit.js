@@ -22,6 +22,9 @@ module.exports = function(cli){
               debug("ACT" + play.length);
             }
             else{
+              if(play.length == 0){
+                play.push([]);
+              }
               play[play.length-1].push([]);
               debug("SCENE" + play[play.length-1].length);
             }
