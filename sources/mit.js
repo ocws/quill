@@ -15,7 +15,6 @@ module.exports = function(cli){
         var items = $("a[name],h3,i");
         var play = [];
         for(var i = 0; i < items.length; i++){
-          //console.log($(items[i]).html());
           if(items[i].tagName == "h3"){
             if($(items[i]).html().substr(0, 3) == "ACT"){
               play.push([]);
@@ -36,13 +35,16 @@ module.exports = function(cli){
             }
             else{
               var speech = play[play.length-1][play[play.length-1].length-1][play[play.length-1][play[play.length-1].length-1].length-1];
-              if(speech.type !== 'verse' && speech.type !== "prose"){
-                debug("INJECTING SPEECH");
-                play[play.length-1][play[play.length-1].length-1].push({char: play[play.length-1][play[play.length-1].length-1][play[play.length-1][play[play.length-1].length-1].length-2].char, type: "verse", _: ""});
+              if(speech != undefined){
+                if(speech.type !== 'verse' && speech.type !== "prose"){
+                  debug("INJECTING SPEECH");
+                  play[play.length-1][play[play.length-1].length-1].push({char: play[play.length-1][play[play.length-1].length-1][play[play.length-1][play[play.length-1].length-1].length-2].char, type: "verse", _: ""});
+                }
+                debug("LINE from SPEECH with id " + (play[play.length-1][play[play.length-1].length-1].length-1).toString());
+                play[play.length-1][play[play.length-1].length-1][play[play.length-1][play[play.length-1].length-1].length-1]._ += $(items[i]).html() +  "\n";
+              } else {
+                debug("IGNORING BEGIN SCENE LINE");
               }
-              debug("LINE from SPEECH with id " + (play[play.length-1][play[play.length-1].length-1].length-1).toString());
-              play[play.length-1][play[play.length-1].length-1][play[play.length-1][play[play.length-1].length-1].length-1]._ += $(items[i]).html() +  "\n";
-
             }
           }
           else{

@@ -22,7 +22,8 @@ if(cli.flags.source != null){
     }
   }
   catch(e){
-    console.log("Source not found");
+    console.log("Source raised error");
+    console.log(e);
   }
 }
 else{
